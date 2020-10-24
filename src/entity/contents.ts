@@ -7,37 +7,37 @@ export class Contents extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({type: "string"})
+    @Column({type: "text"})
     title: string;
 
-    @Column({type: "string"})
+    @Column({type: "text"})
     subTitle: string;
 
-    @Column({type: "string"})
+    @Column({type: "text"})
     person: string;
 
-    @Column({type: "string"})
+    @Column({type: "text"})
     mainImage: string;
 
-    @Column({type: "string"})
+    @Column({type: "text"})
     image1: string;
 
-    @Column({type: "string"})
+    @Column({type: "text"})
     image2: string;
 
-    @Column({type: "string"})
+    @Column({type: "text"})
     image3: string;
 
-    @Column({type: "string"})
+    @Column({type: "text"})
     body1: string;
 
-    @Column({type: "string"})
+    @Column({type: "text"})
     body2: string;
 
-    @Column({type: "string"})
+    @Column({type: "text"})
     body3: string;
 
-    @Column({type: "string"})
+    @Column({type: "text"})
     recommendTime: string;
 
     @Column({type: "boolean"})
@@ -61,7 +61,7 @@ export class Contents extends BaseEntity {
     @Column({type: "boolean"})
     sun: boolean;
 
-    @Column({type: "string"})
+    @Column({type: "text"})
     time: string;
 
     @OneToMany(type => Routine, routine => routine.contents)
