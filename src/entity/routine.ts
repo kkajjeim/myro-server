@@ -35,7 +35,7 @@ export class Routine extends BaseEntity {
     @Column({type: "boolean"})
     sun: boolean;
 
-    @Column({type: "boolean"})
+    @Column({type: "text"})
     alarmTime: string;
 
     @Column({type: "boolean"})
