@@ -24,15 +24,17 @@ export const authHandler = async (
         .catch(e => {
             return res.status(401).send('invalid token');
         });
-
     Object.assign(req, payload);
+    
+    // @ts-ignore
+    if (req.method === "POST") req.body.user = payload.id
     next();
 };
 
 declare global {
     namespace Express {
         interface Request {
-            _id?: string;
+            id?: string;
             email?: string;
         }
     }
