@@ -1,8 +1,7 @@
 import { Routine } from "../entity";
-import { getRepository } from "typeorm";
 
 export const findByUser = async (user) => {
-  return getRepository(Routine).find({
+  return Routine.find({
     relations: ["contents"],
     where: { user: user },
   });

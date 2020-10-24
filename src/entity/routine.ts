@@ -1,6 +1,7 @@
-import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, OneToOne} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, OneToOne, OneToMany} from "typeorm";
 import {User} from "./user";
 import {Contents} from "./contents";
+import {Success} from "./success";
 
 @Entity()
 export class Routine extends BaseEntity {
@@ -13,6 +14,9 @@ export class Routine extends BaseEntity {
 
     @ManyToOne(type => Contents, content => content.routines)
     contents: number;
+    
+    @OneToMany(type => Success, success => success.routine)
+    success: number;
 
     @Column({type: "boolean"})
     mon: boolean;
