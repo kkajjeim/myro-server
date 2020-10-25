@@ -4,7 +4,7 @@ import { query, body, validationResult } from "express-validator";
 import { contentsService } from "../service";
 
 const router = express.Router();
-const routineValidator = [
+const contentsValidator = [
   query('id').isNumeric(),
 ];
 
@@ -22,7 +22,7 @@ router.get(
 
 router.get(
   "/content",
-  routineValidator,
+  contentsValidator,
   async (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
