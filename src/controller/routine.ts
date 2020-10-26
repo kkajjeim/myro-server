@@ -40,11 +40,13 @@ router.post(
       if (!errors.isEmpty()) {
           return res.status(400).json(errors.array());
       }
-      const content = await routineService.create(req.body);
+      const {id} = req
+      const content = await routineService.enroll(id, req.body);
       res.json(content);
     } catch (e) {
       next(e);
     }
   }
 );
+
 export default router;

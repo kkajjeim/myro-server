@@ -12,7 +12,7 @@ export class Routine extends BaseEntity {
     @ManyToOne(type => User, user => user.routines)
     user: number;
 
-    @ManyToOne(type => Contents, content => content.routines)
+    @ManyToOne(type => Contents, content => content.routines, {eager: true})
     contents: number;
     
     @OneToMany(type => Success, success => success.routine)

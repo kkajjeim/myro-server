@@ -25,9 +25,10 @@ export const authHandler = async (
             return res.status(401).send('invalid token');
         });
     Object.assign(req, payload);
-    
+
+
     // @ts-ignore
-    if (req.method === "POST") req.body.user = payload.id
+    // if (req.method === "POST") req.body.user = payload.id
     next();
 };
 
