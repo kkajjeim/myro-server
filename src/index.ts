@@ -10,7 +10,9 @@ const port = process.env.SERVER_PORT || 5000;
 const nodeEnv = process.env.NODE_ENV || 'development';
 
 const main = async () => {
+    console.log('1')
     await createConnection();
+    console.log('2')
     const app = express();
 
     app.use(bodyParser.json());
