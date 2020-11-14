@@ -16,6 +16,7 @@ export const signup = async (
         user.email = email;
         user.password = password;
         user.name = name;
+        user.createdAt = new Date();
         await user.save();
     } catch (e) {
         if (e.code === 1062) // unique error code

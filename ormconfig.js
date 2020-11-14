@@ -1,5 +1,5 @@
 const dotenv = require('dotenv');
-dotenv.config()
+dotenv.config();
 module.exports = {
   "type": "mysql",
   "host": process.env.RDS_URL,
@@ -7,7 +7,7 @@ module.exports = {
   "username": process.env.USERNAME,
   "password": process.env.PASSWORD,
   "database": process.env.DB_NAME,
-  "entities": ["src/entity/*.ts"],
   "synchronize": true,
+  "entities": ["src/entity/*.ts"],
   "timezone": 'Z'
-}
+};

@@ -22,19 +22,19 @@ export class Contents extends BaseEntity {
     @Column({type: "text"})
     image1: string;
 
-    @Column({type: "text"})
+    @Column({type: "text", nullable: true})
     image2: string;
 
-    @Column({type: "text"})
+    @Column({type: "text", nullable: true})
     image3: string;
 
     @Column({type: "text"})
     body1: string;
 
-    @Column({type: "text"})
+    @Column({type: "text", nullable: true})
     body2: string;
 
-    @Column({type: "text"})
+    @Column({type: "text", nullable: true})
     body3: string;
 
     @Column({type: "text"})
@@ -61,10 +61,9 @@ export class Contents extends BaseEntity {
     @Column({type: "boolean"})
     sun: boolean;
 
-    @Column({type: "text"})
-    time: string;
+    @Column({type: "int"})
+    time: number;
 
     @OneToMany(type => Routine, routine => routine.contents)
     routines: Routine[];
-
 }

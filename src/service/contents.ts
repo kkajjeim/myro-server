@@ -10,6 +10,6 @@ export const findOne = async (id) => {
 };
 
 export const create = async (contents: Contents) => {
-  const data = Contents.create(contents)
+  const data = Contents.create(contents);
   return await Contents.save(data);
 };

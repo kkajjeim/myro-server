@@ -3,7 +3,7 @@ import {NextFunction, Request, Response} from "express";
 import {body, validationResult} from "express-validator";
 import {userService} from '../service'
 
-const router = express.Router()
+const router = express.Router();
 
 const signupValidator = [
     body('email').isEmail(),

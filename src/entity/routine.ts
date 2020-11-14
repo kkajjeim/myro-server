@@ -14,38 +14,37 @@ export class Routine extends BaseEntity {
 
     @ManyToOne(type => Contents, content => content.routines, {eager: true})
     contents: number;
-    
+
     @OneToMany(type => Success, success => success.routine)
     success: number;
 
-    @Column({type: "boolean"})
+    @Column({type: "boolean", default: false})
     mon: boolean;
 
-    @Column({type: "boolean"})
+    @Column({type: "boolean", default: false})
     tue: boolean;
 
-    @Column({type: "boolean"})
+    @Column({type: "boolean", default: false})
     wed: boolean;
 
-    @Column({type: "boolean"})
+    @Column({type: "boolean", default: false})
     thu: boolean;
 
-    @Column({type: "boolean"})
+    @Column({type: "boolean", default: false})
     fri: boolean;
 
-    @Column({type: "boolean"})
+    @Column({type: "boolean", default: false})
     sat: boolean;
 
-    @Column({type: "boolean"})
+    @Column({type: "boolean", default: false})
     sun: boolean;
 
     @Column({type: "text"})
     alarmTime: string;
 
-    @Column({type: "boolean"})
+    @Column({type: "boolean", default: true})
     isAlarm: boolean;
 
-    @Column({type: "boolean"})
+    @Column({type: "boolean", default: true})
     isActive: boolean;
-
 }

@@ -17,10 +17,7 @@ export class User extends BaseEntity {
     @Column({type: "text"})
     name: string;
 
-    @Column({type: "text"})
-    recordDay: string;
-
-    @Column({type: "date"})
+    @Column({type: "timestamp"})
     createdAt: Date;
 
     @OneToMany(type => Routine, routine => routine.user)
@@ -34,5 +31,4 @@ export class User extends BaseEntity {
     async comparePassword(candidatePassword: string): Promise<boolean> {
         return await bcrypt.compare(candidatePassword, this.password);
     }
-
 }
