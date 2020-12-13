@@ -8,15 +8,15 @@ const router = express.Router();
 router.use(authHandler);
 
 const routineValidator = [
-  body('contents').isNumeric(),
-  body('mon').isBoolean(),
-  body('tue').isBoolean(),
-  body('wed').isBoolean(),
-  body('thu').isBoolean(),
-  body('fri').isBoolean(),
-  body('sat').isBoolean(),
-  body('sun').isBoolean(),
-  body('alarmTime').isString(),
+  body("contents").isNumeric(),
+  body("mon").isBoolean(),
+  body("tue").isBoolean(),
+  body("wed").isBoolean(),
+  body("thu").isBoolean(),
+  body("fri").isBoolean(),
+  body("sat").isBoolean(),
+  body("sun").isBoolean(),
+  body("alarmTime").isString(),
 ];
 
 /**
@@ -42,15 +42,18 @@ router.get(
  * 재등록일 경우 find 하여 isActive 를 활성화한다.
  */
 router.post(
-  "/routine", routineValidator,
+  "/routine",
+  authHandler,
+  routineValidator,
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-          return res.status(400).json(errors.array());
+        return res.status(400).json(errors.array());
       }
-
-      const {id} = req;
+      // @ts-ignore
+      // console.log(req);
+      const { id } = req;
       const routine = await routineService.enroll(id, req.body);
       await successService.setDefault(routine.id);
 
