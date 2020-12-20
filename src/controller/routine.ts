@@ -2,10 +2,11 @@ import * as express from "express";
 import { NextFunction, Request, Response } from "express";
 import { body, validationResult } from "express-validator";
 import { routineService, successService } from "../service";
-import { authHandler } from "../middleware/auth";
+import { validateUser, loginRequired  } from "../middleware/auth";
 
 const router = express.Router();
-router.use(authHandler);
+router.use(loginRequired);
+router.use(validateUser);
 
 const routineValidator = [
   body("contents").isNumeric(),
@@ -43,7 +44,6 @@ router.get(
  */
 router.post(
   "/routine",
-  authHandler,
   routineValidator,
   async (req: Request, res: Response, next: NextFunction) => {
     try {

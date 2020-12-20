@@ -36,11 +36,14 @@ export const loginRequired = async (
 };
 export const validateUser = async (req: Request, res: Response, next: NextFunction) => {
   const token = req.headers["x-access-token"];
+  if (!token){
+      next()
+      return;
+  }
   const payload = await authenticate(token as string).catch((e) => {
     return res.status(401).send("invalid token");
   });
   Object.assign(req, payload);
-  console.log("##########", payload)
   next()
 };
 

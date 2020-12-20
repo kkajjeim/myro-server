@@ -1,18 +1,30 @@
 import * as express from "express";
 import { NextFunction, Request, Response } from "express";
 import { query, body, validationResult } from "express-validator";
-import { contentsService } from "../service";
+import { contentsService, routineService } from "../service";
+import { validateUser, loginRequired } from "../middleware/auth";
 
 const router = express.Router();
-const contentsValidator = [
-  query('id').isNumeric(),
-];
+router.use(validateUser);
+
+const contentsValidator = [query("id").isNumeric()];
 
 router.get(
   "/contents",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
+      const id = req.id;
       const contents = await contentsService.find();
+      if (!id) {
+        res.json(contents);
+      }
+      const userRoutines = await routineService.findByUser(id);
+      userRoutines.forEach((routine) => {
+        contents.forEach((contents) => {
+          routine.contents.id === contents.id && (contents.isSubscribe = true);
+        });
+      });
+
       res.json(contents);
     } catch (e) {
       next(e);
@@ -26,7 +38,7 @@ router.get(
   async (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json(errors.array());
+      return res.status(400).json(errors.array());
     }
     const { id } = req.query;
     try {
