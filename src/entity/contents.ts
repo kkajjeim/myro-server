@@ -64,9 +64,6 @@ export class Contents extends BaseEntity {
     @Column({type: "int"})
     time: number;
 
-    @Column({type: "boolean", nullable: true, default: false})
-    isSubscribe: boolean;
-
     @OneToMany(type => Routine, routine => routine.contents)
     routines: Routine[];
 }
