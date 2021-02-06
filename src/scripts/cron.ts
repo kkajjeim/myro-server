@@ -13,16 +13,17 @@ export const initializeCronTasks = () => {
 
         const endedSuccesses = await Success.find({
             relations: ["routine"],
-            where: {endDate: yesterday.toDate()}
+            where: {endDate: LessThanOrEqual(yesterday.toDate())}
         });
 
         for(const success of endedSuccesses) {
-            const isActiveSuccessExists = await Success.find({
+            const activeSuccess = await Success.find({
+                routine: success.routine,
                 startDate: LessThanOrEqual(now.toDate()),
                 endDate: MoreThan(now.toDate())
             });
 
-            if (isActiveSuccessExists.length)
+            if (activeSuccess.length)
                 continue;
 
             await Routine.update(success.routine, {isActive: false});

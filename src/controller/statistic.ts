@@ -4,6 +4,9 @@ import {Request} from "express";
 import {Response} from "express";
 import {NextFunction} from "express";
 import {statisticService} from "../service";
+import * as dayjs from "dayjs";
+import {Routine, Success} from "../entity";
+import {LessThanOrEqual, MoreThan, MoreThanOrEqual} from "typeorm";
 
 const router = express.Router();
 router.use(loginRequired);
@@ -17,7 +20,6 @@ router.get(
     "/statistic",
     async (req: Request, res: Response, next: NextFunction) => {
         try {
-            console.log(1);
             const { id } = req;
             const statistic = await statisticService
                 .generateRandomStatistic(id);

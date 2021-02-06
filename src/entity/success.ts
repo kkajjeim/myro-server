@@ -1,6 +1,7 @@
-import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, OneToOne} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, OneToOne, AfterLoad} from "typeorm";
 import {Routine} from "./routine";
 import {Contents} from "./contents";
+import {generateDays} from "../common";
 
 @Entity()
 export class Success extends BaseEntity {
@@ -52,4 +53,11 @@ export class Success extends BaseEntity {
 
     @Column({type: "boolean", default: false})
     sun: boolean;
+
+    days: number[];
+
+    @AfterLoad()
+    setComputed() {
+        this.days = generateDays(this.sun, this.mon, this.tue, this.wed, this.thu, this.fri, this.sat);
+    }
 }

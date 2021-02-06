@@ -1,10 +1,11 @@
-import {Contents, Routine} from "../entity";
+import {Contents, Routine, Success} from "../entity";
 import {randomIntFromInterval} from "../common/util";
+import {LessThan, MoreThanOrEqual} from "typeorm";
 
 const HISTORY_TITLE = '구독했던 습관';
 const DAILY_TITLE_SUFFIX = '에 어울리는 습관';
 const WEEKLY_TITLE_SUFFIX = '요일에 인기있는 습관';
-const CONTENTS_PER_THEME = 3;
+const CONTENTS_PER_THEME = 2;
 
 const DAILY = [
     {type: "아침", from: 5, to: 11},
@@ -26,9 +27,9 @@ const WEEKLY = [
 export const generateRandomStatistic = async (userid): Promise<Statistic[]> => {
     const result = [];
 
-    result.push(await getHistory(userid));
     result.push(await getDailyRecommendation());
     result.push(await getWeeklyRecommendation());
+    result.push(await getHistory(userid));
 
     return result;
 };
@@ -37,14 +38,16 @@ const getHistory = async (userid): Promise<Statistic> => {
     const result = new Statistic(HISTORY_TITLE);
     const history = await Routine.find({user: userid});
 
+    const now = new Date();
     const included = [];
-    history.forEach(r => {
+    for (const r of history) {
         const isDuplicatedContent = included.includes(r.contents.id);
-        if (!isDuplicatedContent) {
+
+        if (!isDuplicatedContent && !r.isActive) {
             result.contents.push(r.contents);
             included.push(r.contents.id);
         }
-    });
+    }
 
     return result;
 };

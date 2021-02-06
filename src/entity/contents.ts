@@ -1,5 +1,6 @@
-import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, AfterLoad} from "typeorm";
 import {Routine} from "./routine";
+import {generateDays} from "../common";
 
 @Entity()
 export class Contents extends BaseEntity {
@@ -66,4 +67,11 @@ export class Contents extends BaseEntity {
 
     @OneToMany(type => Routine, routine => routine.contents)
     routines: Routine[];
+
+    days: number[];
+
+    @AfterLoad()
+    setComputed() {
+        this.days = generateDays(this.sun, this.mon, this.tue, this.wed, this.thu, this.fri, this.sat);
+    }
 }
